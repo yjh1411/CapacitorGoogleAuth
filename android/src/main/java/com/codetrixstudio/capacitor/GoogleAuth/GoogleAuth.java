@@ -59,13 +59,17 @@ public class GoogleAuth extends Plugin {
 
     boolean forceCodeForRefreshToken = getConfig().getBoolean("forceCodeForRefreshToken", false);
 
+
+    //yjh - clientId를 쓰지 않고, 인증 함. clientId를 써서 인증하면 error 10 으로 계속 인증이 안됨.
+    //https://console.cloud.google.com/apis/credentials?project=gold-rope-370902&supportedpurview=project 에서
+    //OAuth 2.0 클라이언트 ID 를 앱 별로 등록해 놓으면 됨.
     GoogleSignInOptions.Builder googleSignInBuilder = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(clientId)
+//            .requestIdToken(clientId)
             .requestEmail();
 
-    if (forceCodeForRefreshToken) {
-      googleSignInBuilder.requestServerAuthCode(clientId, true);
-    }
+//    if (forceCodeForRefreshToken) {
+//      googleSignInBuilder.requestServerAuthCode(clientId, true);
+//    }
 
     String[] scopeArray = getConfig().getArray("scopes", new String[] {});
     Scope[] scopes = new Scope[scopeArray.length - 1];
